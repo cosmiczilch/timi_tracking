@@ -1,10 +1,9 @@
-# gitignore file that all S8 games share
-# only add things that you know every game needs to ignore
-
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
+/[Bb]uilds/
+/Assets/AssetStoreTools*
 .DS_Store
 *.DS_Store
 
@@ -18,6 +17,7 @@
 *.userprefs
 *.pidb
 *.booproj
+*.svd
 
 # First ignore all meta files. Then un-ignore all meta files with more than one period.
 # This ignores all meta files for just directories. This is to prevent Unity
@@ -41,9 +41,10 @@ sysinfo.txt
 BuildInfo.asset
 BuildInfo.asset.meta
 
-# Ignore Android APK and OBB extension files
+# Ignore Buids
 *.apk
 *.obb
+*.unitypackage
 
 # Consulo project files
 */.consulo/
