@@ -34,5 +34,10 @@ namespace TimiTracking.MainScene {
         }
         #endregion
 
+        #region Event Handling
+        public void OnCheckinButtonClicked() {
+        }
+        #endregion
+
     }
 }
