@@ -4,29 +4,30 @@ using TimiShared.UI;
 using UnityEngine;
 
 namespace TimiTracking.MainScene {
-    public class MainPanel : MonoBehaviour {
+    public class EmoticonPanel : MonoBehaviour {
+
         [SerializeField] private Animator _animator;
 
         private const string kTriggerNameIntro = "Intro";
         private const string kTriggerNameExit  = "Exit";
 
         #region Static
-        private const string kMainPanelPrefabName = "Prefabs/UI/MainPanel";
+        private const string kEmoticonPanelPrefabName = "Prefabs/UI/EmoticonPanel";
         public static void Present() {
-            if (MainPanel.Instance != null) {
-                TimiDebug.LogColor("Already loaded an instance of MainPanel", LogColor.green);
-                MainPanel.Instance.Show();
+            if (EmoticonPanel.Instance != null) {
+                TimiDebug.LogColor("Already loaded an instance of EmoticonPanel", LogColor.green);
+                EmoticonPanel.Instance.Show();
                 return;
             }
-            PrefabLoader.Instance.InstantiateAsynchronous(kMainPanelPrefabName, UIRootView.Instance.MainCanvas.transform, (loadedGO) => {
-                MainPanel.Instance = loadedGO.GetComponent<MainPanel>();
-                if (MainPanel.Instance == null) {
-                    TimiDebug.LogWarningColor("Cannot find " + typeof(MainPanel).Name + " on loaded prefab", LogColor.red);
+            PrefabLoader.Instance.InstantiateAsynchronous(kEmoticonPanelPrefabName, UIRootView.Instance.MainCanvas.transform, (loadedGO) => {
+                EmoticonPanel.Instance = loadedGO.GetComponent<EmoticonPanel>();
+                if (EmoticonPanel.Instance == null) {
+                    TimiDebug.LogWarningColor("Cannot find " + typeof(EmoticonPanel).Name + " on loaded prefab", LogColor.red);
                 }
             });
         }
 
-        public static MainPanel Instance {
+        public static EmoticonPanel Instance {
             get; private set;
         }
         #endregion
@@ -34,19 +35,19 @@ namespace TimiTracking.MainScene {
         #region LifeCycle
         private void Awake() {
             this.ResetTriggers();
-            MainPanelExitStateMachineBehaviour exitStateMachineBehaviour = this._animator.GetBehaviour<MainPanelExitStateMachineBehaviour>();
+            EmoticonPanelExitStateMachineBehaviour exitStateMachineBehaviour = this._animator.GetBehaviour<EmoticonPanelExitStateMachineBehaviour>();
             if (exitStateMachineBehaviour != null) {
-                exitStateMachineBehaviour.MainPanel = this;
+                exitStateMachineBehaviour.EmoticonPanel = this;
             }
         }
 
         private void OnDestroy() {
-            MainPanel.Instance = null;
+            EmoticonPanel.Instance = null;
         }
 
         private void Show() {
             this.gameObject.SetActive(true);
-            MainPanel.Instance.SetTrigger(kTriggerNameIntro);
+            EmoticonPanel.Instance.SetTrigger(kTriggerNameIntro);
         }
 
         private void Dismiss() {
@@ -58,16 +59,9 @@ namespace TimiTracking.MainScene {
         }
         #endregion
 
-        #region Event Handling
-        public void OnCheckinButtonClicked() {
-            this.Dismiss();
-            EmoticonPanel.Present();
-        }
-
         public void OnExitHideComplete() {
             this.OnDismissComplete();
         }
-        #endregion
 
         private void SetTrigger(string triggerName) {
             if (this._animator != null) {
@@ -81,6 +75,7 @@ namespace TimiTracking.MainScene {
                 this._animator.ResetTrigger(kTriggerNameExit);
             }
         }
+
 
     }
 }
