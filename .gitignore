@@ -52,5 +52,8 @@ BuildInfo.asset.meta
 UnityEditorConsuloPlugin.dll
 UnityEditorConsuloPlugin.dll.meta
 
+# Visual studio project files
+.vs/*
+
 # Ignore automatically generated Xcode project
 */ios_project
