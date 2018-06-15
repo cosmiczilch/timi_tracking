@@ -1,3 +1,4 @@
+using TimiShared.Debug;
 using TimiShared.UI;
 
 namespace TimiTracking.MainScene {
